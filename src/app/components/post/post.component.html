@@ -1,0 +1,70 @@
+<app-navigation-bar></app-navigation-bar>
+
+<div class="container my-5">
+    <a routerLink="/" class="btn btn-outline-danger my-3"><i class="bi bi-arrow-left-short"></i>Back</a>
+    <section class="mb-5">
+        <h1 class="mt-3 display-2 text-center" style="margin-bottom: 8%;">{{post.title}}</h1>
+        <div class="my-4">
+            <p class="fs-5">
+                Written By: {{post.user.name}}
+                <br>
+                Posted On: {{post.addedDate.toString().substring(0,10)}}
+            </p>
+        </div>
+        <div class="my-5 text-center">
+            <img src=" ../../../assets/images/{{post.imageName}}" class="img-fluid" alt="...">
+        </div>
+        <div class="my-4">
+            <p class="fs-5">{{post.content}}</p>
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="my-5 py-4">
+        <div>
+            <h3>Comment on this article:</h3>
+            <div *ngIf="loggedInUser.username.length!=0">
+                <h6 class="mt-3">{{loggedInUser.username}} <span class="text-muted">it's you</span></h6>
+            </div>
+            <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+                <div>
+                    <input type="text" formControlName="title" class="form-control mt-2" placeholder="comment title">
+                </div>
+                <div class="alert alert-danger" *ngIf="(title?.touched || title?.dirty) && title?.invalid">
+                    <div *ngIf="$any(title?.errors).required">
+                        Title is required
+                    </div>
+                </div>
+                <div>
+                    <input type="text" formControlName="comment" class="form-control mt-2"
+                        placeholder="type your comment">
+
+                    <div class="alert alert-danger" *ngIf="(comment?.touched || comment?.dirty) && comment?.invalid">
+                        <div *ngIf="$any(comment?.errors).required">
+                            Content is required
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-3">comment</button>
+                </div>
+            </form>
+        </div>
+        <div class="my-3">
+            <h3>Comments <span>{{post.comments.length}}</span></h3>
+            <div *ngFor="let comment of comments">
+                <h6 class="mt-4">{{comment.commentUser.name}}</h6>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{comment.title}}</h5>
+                        <p class="card-text">{{comment.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<app-footer></app-footer>

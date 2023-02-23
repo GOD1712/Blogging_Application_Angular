@@ -1,0 +1,41 @@
+<app-navigation-bar></app-navigation-bar>
+<div class="container my-4">
+    <h1 class="text-center">Popular Blogs</h1>
+    <div class="input-group mt-4">
+        <input [(ngModel)]="keyword" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+            aria-describedby="search-addon" />
+        <button type="button" class="btn btn-outline-primary" (click)="search()"><i class="bi bi-search"></i></button>
+        <button type="button" class="btn btn-danger" (click)="cancelSearch()"><i class="bi bi-x"
+                style="font-size: 1.25rem;"></i></button>
+    </div>
+    <div class="mt-3 mb-5">
+        <p class="text-muted">Showing {{((pageNumber-1)*pageSize)+1}} to {{pageNumber*pageSize < totalPosts?
+                pageNumber*pageSize: totalPosts}} of {{totalPosts}} blogs</p>
+    </div>
+    <div *ngIf="posts.length>0; else elseBlock">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let post of posts">
+                <div class="card mb-3 pointer" style="width: 20rem;" (click)="viewPost(post.postId)">
+                    <img [src]="'../../../assets/images/'+post.imageName" class="card-img-top" alt="..." width="318px"
+                        height="179px">
+                    <div class="card-body mt-2">
+                        <h6 class="d-inline border border-warning text-warning px-2 py-1">
+                            {{post.category.categoryTitle}}
+                        </h6>
+                        <h5 class="card-title mt-3 mb-4">{{post.title}}</h5>
+                        <p class="card-text">By <span class="text-success">{{post.user.name}}</span><i
+                                class="bi bi-dot"></i>{{post.addedDate.toString().substr(0,10)}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #elseBlock>
+        <h3 class="my-5 text-center">No Posts available</h3>
+    </ng-template>
+    <div class="my-5">
+        <ngb-pagination class="d-flex" style="justify-content: center;" [collectionSize]="totalPosts"
+            [(page)]="pageNumber" [pageSize]="pageSize" (pageChange)="onPageChange()"></ngb-pagination>
+    </div>
+</div>
+<app-footer></app-footer>

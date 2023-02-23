@@ -1,0 +1,55 @@
+<div class="container">
+    <a routerLink="/" class="btn btn-outline-danger my-3"><i class="bi bi-arrow-left-short"></i>Back</a>
+    <div class="border center">
+        <h1 class="text-center">Register</h1>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" formControlName="name" class="form-control" id="name">
+                <div class="alert alert-danger" *ngIf="(name?.touched || name?.dirty) && name?.invalid">
+                    <div *ngIf="$any(name?.errors).required">
+                        Name is required
+                    </div>
+                    <div *ngIf="$any(name?.errors).minlength">
+                        Name must have atleast 3 characters
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="emailId" class="form-label">Email address</label>
+                <input type="email" formControlName="email" class="form-control" id="emailId"
+                    placeholder="name@example.com">
+
+                <div class="alert alert-danger" *ngIf="(email?.touched || email?.dirty) && email?.invalid">
+                    <div *ngIf="$any(email?.errors).required">
+                        Email is required
+                    </div>
+                    <div *ngIf="$any(email?.errors).email">
+                        Email Id id invalid
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" formControlName="password" class="form-control" id="password">
+
+                <div class="alert alert-danger" *ngIf="(password?.touched || password?.dirty) && password?.invalid">
+                    <div *ngIf="$any(password?.errors).required">
+                        Password is required
+                    </div>
+                    <div *ngIf="$any(password?.errors).pattern">
+                        Password must have 8 to 15 characters and contain at least one lowercase letter, one uppercase
+                        letter, one numeric digit, and one special character
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="about" class="form-label">Tell Something About Yourself!!</label>
+                <textarea formControlName="description" class="form-control" id="about" rows="3"></textarea>
+            </div>
+            <div class="mb-3 text-center">
+                <button class="btn btn-danger" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<app-navigation-bar></app-navigation-bar>
+<div class="container my-5">
+    <a routerLink="/" class="btn btn-outline-danger mb-3"><i class="bi bi-arrow-left-short"></i>Back</a>
+    <div class="px-5">
+        <h1 class="text-center mb-5">Write your blog</h1>
+        <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" formControlName="title" class="form-control" id="title">
+
+                <div class="alert alert-danger" *ngIf="(title?.touched || title?.dirty) && title?.invalid">
+                    <div *ngIf="$any(title?.errors).required">
+                        Title is required
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Select a Category</label>
+                <select class="form-select" formControlName="category" id="category">
+                    <option *ngFor="let eachCategory of categories" [ngValue]="eachCategory">
+                        {{eachCategory.categoryTitle}}</option>
+                </select>
+
+                <div class="alert alert-danger" *ngIf="(category?.touched || category?.dirty) && category?.invalid">
+                    <div *ngIf="$any(category?.errors).required">
+                        Category is required
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control" formControlName="content" id="content" rows="10"></textarea>
+
+                <div class="alert alert-danger" *ngIf="(content?.touched || content?.dirty) && content?.invalid">
+                    <div *ngIf="$any(content?.errors).required">
+                        Content is required
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="formFile" class="form-label">Upload an image</label>
+                <input #imageInput class="form-control" type="file" accept="image/*" id="formFile"
+                    (change)="onChange(imageInput)">
+            </div>
+            <div class="mb-3 text-center">
+                <button class="btn btn-danger" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<app-footer></app-footer>

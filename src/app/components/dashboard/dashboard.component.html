@@ -1,0 +1,29 @@
+<app-navigation-bar></app-navigation-bar>
+<div class="container my-5">
+    <a routerLink="/" class="btn btn-outline-danger mb-3"><i class="bi bi-arrow-left-short"></i>Back</a>
+    <div>
+        <h1 class="text-center display-3" style="margin-bottom: 8%;">Dashboard</h1>
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="list-group">
+                    <li class="list-group-item text-center"><a class="dashboard-link"
+                            [routerLink]="['/dashboard/user',userId,'details']" routerLinkActive="active">User
+                            Details</a></li>
+                    <li class="list-group-item text-center"><a class="dashboard-link"
+                            [routerLink]="['/dashboard/user',userId,'blogs']" routerLinkActive="active">Your
+                            Blogs</a></li>
+                    <li class="list-group-item text-center"><a class="dashboard-link"
+                            [routerLink]="['/dashboard/user',userId,'change-password']" routerLinkActive="active">Change
+                            Password</a></li>
+                    <li class="list-group-item text-center"><a class="dashboard-link"
+                            [routerLink]="['/dashboard/user',userId,'delete-account']" routerLinkActive="active">Delete
+                            Account</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

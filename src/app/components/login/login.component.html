@@ -1,0 +1,45 @@
+<div class="container">
+    <a routerLink="/" class="btn btn-outline-danger my-3"><i class="bi bi-arrow-left-short"></i>Back</a>
+    <div class="border center">
+        <h1 class="text-center">Login</h1>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="emailId" class="form-label">Email address</label>
+                <input type="email" formControlName="username" class="form-control" id="emailId"
+                    placeholder="name@example.com">
+
+                <div *ngIf="username?.invalid && (username?.touched || username?.dirty)" class="alert alert-danger">
+                    <div *ngIf="$any(username?.errors).required">
+                        Email is required
+                    </div>
+                    <div *ngIf="$any(username?.errors).email">
+                        Email format is incorrect
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" formControlName="password" class="form-control" id="password">
+
+                <div class="alert alert-danger" *ngIf="password?.invalid && (password?.touched || password?.dirty)">
+                    <div *ngIf="$any(password?.errors).required">
+                        Password is required
+                    </div>
+                    <!-- <div *ngIf="$any(password?.errors).pattern">
+                        Password must have 8 to 15 characters and contain at least one lowercase letter, one
+                        uppercase
+                        letter, one numeric digit, and one special character
+                    </div> -->
+                </div>
+            </div>
+            <div class="mb-4 text-center">
+                <button class="btn btn-danger" type="submit">Submit</button>
+            </div>
+            <div class="mb-3 text-center">
+                Forgot <a routerLink="/forgot-password" class="text-success links">Password?</a>
+                <br>
+                Don't have an account? <a routerLink="/register" class="text-success links">Sign up</a>
+            </div>
+        </form>
+    </div>
+</div>
